@@ -35,12 +35,12 @@ For further information about duo_unix, view the official
 
 ###Classes
 
-* duo_unix: Main class, includes all the rest
-* duo_unix::apt: Repository configuration for Apt-based distributions
-* duo_unix::generic: Provides required cross-platform resources
-* duo_unix::login: Configuration of `login_duo` functionality
-* duo_unix::pam: Configuration of `pam_duo` functionality
-* duo_unix::yum: Repository configuration for Yum-based distributions
+* duo_unix - Main class, includes all of the rest
+* duo_unix::apt - Repository configuration for Apt-based distributions
+* duo_unix::generic - Provides cross-platform resources
+* duo_unix::login - Configuration of `login_duo` functionality
+* duo_unix::pam - Configuration of `pam_duo` functionality
+* duo_unix::yum - Repository configuration for Yum-based distributions
 
 ###Parameters
 
