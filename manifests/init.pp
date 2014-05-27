@@ -34,10 +34,20 @@ class duo_unix (
       $ssh_service = 'sshd'
       $gpg_file    = '/etc/pki/rpm-gpg/RPM-GPG-KEY-DUO'
 
-      $pam_file    = $::operatingsystemmajrelease ? {
-        5 => '/etc/pam.d/system-auth',
-        6 => '/etc/pam.d/password-auth'
-      }
+  if ( $::operatingsystemmajrelease != '' ) {
+    $pam_file = $::operatingsystemmajrelease ? {
+      5 => '/etc/pam.d/system-auth',
+      6 => '/etc/pam.d/password-auth',
+    }
+
+  } else {
+
+    case $::operatingsystemrelease {
+      /^6/: { $pam_file = '/etc/pam.d/password-auth' }
+      /^5/: { $pam_file = '/etc/pam.d/system-auth' }
+      default: { err('RedHat 5 and 6 are the only supported RHEL versions') }
+    }
+  }
 
       $pam_module  = $::architecture ? {
         i386   => '/lib/security/pam_duo.so',
