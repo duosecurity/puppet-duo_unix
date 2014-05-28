@@ -45,7 +45,7 @@ class duo_unix (
     case $::operatingsystemrelease {
       /^6/: { $pam_file = '/etc/pam.d/password-auth' }
       /^5/: { $pam_file = '/etc/pam.d/system-auth' }
-      default: { err('RedHat 5 and 6 are the only supported RHEL versions') }
+      default: { err('Only RHEL/CentOS 5 and 6 are supported versions') }
     }
   }
 
