@@ -34,9 +34,9 @@ class duo_unix (
       $ssh_service = 'sshd'
       $gpg_file    = '/etc/pki/rpm-gpg/RPM-GPG-KEY-DUO'
 
-      $pam_file    = $::operatingsystemmajrelease ? {
-        5 => '/etc/pam.d/system-auth',
-        6 => '/etc/pam.d/password-auth'
+      $pam_file = $::operatingsystemrelease ? {
+        /^5/ => '/etc/pam.d/system-auth',
+        /^6/ => '/etc/pam.d/password-auth',
       }
 
       $pam_module  = $::architecture ? {
