@@ -119,3 +119,6 @@ files depending on the usage defined. These modifications have only been tested
 against default distribution configurations and could impact your settings. Be 
 sure to test this module against non-production systems before attempting to 
 deploy it across your critical infrastucture.
+
+##Thanks
+* Gregg Leventhal
