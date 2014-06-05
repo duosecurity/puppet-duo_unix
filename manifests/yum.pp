@@ -16,7 +16,7 @@ class duo_unix::yum {
   # Map Amazon Linux to RedHat equivalent releases
   if $::operatingsystem == 'Amazon' {
     $releasever = $::operatingsystemmajrelease ? {
-      '2014'  => '6',
+      '2014'  => '6Server',
       default => undef,
     }
 
