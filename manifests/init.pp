@@ -18,7 +18,9 @@ class duo_unix (
   $autopush = 'no',
   $motd = 'no',
   $prompts = '3',
-  $accept_env_factor = 'no'
+  $accept_env_factor = 'no',
+  $manage_ssh_service = true,
+  $manage_ssh_package = true
 ) {
   if $ikey == '' or $skey == '' or $host == '' {
     fail('ikey, skey, and host must all be defined.')

@@ -8,10 +8,6 @@
 #
 class duo_unix::yum {
   $repo_uri = 'http://pkg.duosecurity.com'
-  package {  [ 'openssh-server', $duo_unix::duo_package ]:
-    ensure  => latest,
-    require => [ Yumrepo['duosecurity'], Exec['Duo Security GPG Import'] ];
-  }
 
   yumrepo { 'duosecurity':
     descr    => 'Duo Security Repository',
@@ -20,6 +16,17 @@ class duo_unix::yum {
     enabled  => '1',
     require  => File['/etc/pki/rpm-gpg/RPM-GPG-KEY-DUO'];
   }
+
+  Package {
+    ensure  => latest,
+    require => [ Yumrepo['duosecurity'], Exec['Duo Security GPG Import'] ]
+  }
+
+  if $duo_unix::manage_ssh_package {
+    package { 'openssh-server': }
+  }
+
+  package { $duo_unix::duo_package: }
 
   exec { 'Duo Security GPG Import':
     command => '/bin/rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-DUO',

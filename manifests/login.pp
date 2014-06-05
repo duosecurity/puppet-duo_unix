@@ -16,7 +16,7 @@ class duo_unix::login {
     require => Package[$duo_unix::duo_package];
   }
 
-  augeas { 'SSH Configuration' :
+  augeas { 'DUO Security SSH Configuration' :
     changes => [
       'set /files/etc/ssh/sshd_config/ForceCommand /usr/sbin/login_duo',
       'set /files/etc/ssh/sshd_config/PermitTunnel no',

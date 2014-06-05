@@ -19,7 +19,7 @@ class duo_unix::pam {
     require => Package[$duo_unix::duo_package];
   }
 
-  augeas { 'SSH Configuration' :
+  augeas { 'DUO Security SSH Configuration' :
     changes => [
       'set /files/etc/ssh/sshd_config/UsePAM yes',
       'set /files/etc/ssh/sshd_config/UseDNS no',
@@ -30,7 +30,7 @@ class duo_unix::pam {
   }
 
   if $::osfamily == RedHat {
-    augeas { 'PAM Configuration':
+    augeas { 'DUO Security PAM Configuration':
       changes => [
         "set ${aug_pam_path}/2/control requisite",
         "ins 100 after ${aug_pam_path}/2",
@@ -43,7 +43,7 @@ class duo_unix::pam {
       notify  => Service[$duo_unix::ssh_service];
     }
   } else {
-    augeas { 'PAM Configuration':
+    augeas { 'DUO Security PAM Configuration':
       changes => [
         "set ${aug_pam_path}/1/control requisite",
         "ins 100 after ${aug_pam_path}/1",

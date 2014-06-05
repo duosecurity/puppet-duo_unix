@@ -99,6 +99,14 @@ users. There is no default for this setting.
 Configures usage of the http_proxy environment variable. There is not default
 for this setting.
 
+####`manage_ssh_service [optional]`
+Configures whether or not to allow the module to manage the ssh service.
+The default is *true*.
+
+####`manage_ssh_package [optional]`
+Configures whether or not to allow the module to manage the ssh package.
+The default is *true*.
+
 ##Limitations
 This module has been built on and tested against Puppet 3.2.4
 
