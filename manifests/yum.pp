@@ -21,12 +21,12 @@ class duo_unix::yum {
     }
 
   } else {
-    $releasever = '\$releasever'
+    $releasever = '$releasever'
   }
 
   yumrepo { 'duosecurity':
     descr    => 'Duo Security Repository',
-    baseurl  => "${repo_uri}/${::osfamily}/${releasever}/\$basearch",
+    baseurl  => "${repo_uri}/${::operatingsystem}/${releasever}/\$basearch",
     gpgcheck => '1',
     enabled  => '1',
     require  => File['/etc/pki/rpm-gpg/RPM-GPG-KEY-DUO'];
