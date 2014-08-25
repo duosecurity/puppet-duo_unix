@@ -105,8 +105,10 @@ This module has been built on and tested against Puppet 3.2.4
 The module has been tested on:
 
 * RedHat Enterprise Linux 6.4 (32/64-bit)
+* RedHat Enterprise Linux 7.0 (64-bit)
 * CentOS 5.9 (32/64-bit)
 * CentOS 6.4 (32/64-bit)
+* CentOS 7.0 (64-bit)
 * Debian 7.1 (32/64-bit)
 * Ubuntu 12.04.3 (32/64-bit)
 
