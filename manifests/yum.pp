@@ -15,7 +15,7 @@ class duo_unix::yum {
   }
 
   if $manage_ssh == 'yes' {
-    package { 'openssh-server'
+    package { 'openssh-server':
       ensure => installed,
     }
   }
