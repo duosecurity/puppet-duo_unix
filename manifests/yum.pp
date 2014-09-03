@@ -8,9 +8,16 @@
 #
 class duo_unix::yum {
   $repo_uri = 'http://pkg.duosecurity.com'
-  package {  [ 'openssh-server', $duo_unix::duo_package ]:
+  package {  $duo_unix::duo_package:
     ensure  => latest,
-    require => [ Yumrepo['duosecurity'], Exec['Duo Security GPG Import'] ];
+    require => [ Yumrepo['duosecurity'], 
+    Exec['Duo Security GPG Import'] ];
+  }
+
+  if $manage_ssh == 'yes' {
+    package { 'openssh-server'
+      ensure => installed,
+    }
   }
 
   # Map Amazon Linux to RedHat equivalent releases

@@ -30,7 +30,7 @@ class duo_unix (
   }
 
   if $manage_ssh != 'yes' and $manage_ssh != 'no' {
-    fail('You must configure how SSH is being managed, either yes or no.')
+    fail('You must configure how SSH is managed, either yes or no.')
   }
 
   case $::osfamily {
