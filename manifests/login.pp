@@ -16,13 +16,15 @@ class duo_unix::login {
     require => Package[$duo_unix::duo_package];
   }
 
-  augeas { 'SSH Configuration' :
-    changes => [
-      'set /files/etc/ssh/sshd_config/ForceCommand /usr/sbin/login_duo',
-      'set /files/etc/ssh/sshd_config/PermitTunnel no',
-      'set /files/etc/ssh/sshd_config/AllowTcpForwarding no'
-    ],
-    require => Package[$duo_unix::duo_package],
-    notify  => Service[$duo_unix::ssh_service];
+  if $manage_ssh == 'yes'{
+    augeas { 'SSH Configuration' :
+      changes => [
+        'set /files/etc/ssh/sshd_config/ForceCommand /usr/sbin/login_duo',
+        'set /files/etc/ssh/sshd_config/PermitTunnel no',
+        'set /files/etc/ssh/sshd_config/AllowTcpForwarding no'
+      ],
+      require => Package[$duo_unix::duo_package],
+      notify  => Service[$duo_unix::ssh_service];
+    }
   }
 }

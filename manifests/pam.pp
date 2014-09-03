@@ -19,14 +19,16 @@ class duo_unix::pam {
     require => Package[$duo_unix::duo_package];
   }
 
-  augeas { 'SSH Configuration' :
-    changes => [
-      'set /files/etc/ssh/sshd_config/UsePAM yes',
-      'set /files/etc/ssh/sshd_config/UseDNS no',
-      'set /files/etc/ssh/sshd_config/ChallengeResponseAuthentication yes'
-    ],
-    require => Package[$duo_unix::duo_package],
-    notify  => Service[$duo_unix::ssh_service];
+  if $manage_ssh == 'yes' {
+    augeas { 'SSH Configuration' :
+      changes => [
+        'set /files/etc/ssh/sshd_config/UsePAM yes',
+        'set /files/etc/ssh/sshd_config/UseDNS no',
+        'set /files/etc/ssh/sshd_config/ChallengeResponseAuthentication yes'
+      ],
+      require => Package[$duo_unix::duo_package],
+      notify  => Service[$duo_unix::ssh_service];
+    }
   }
 
   if $::osfamily == RedHat {
@@ -39,8 +41,7 @@ class duo_unix::pam {
         "set ${aug_pam_path}/100/module ${duo_unix::pam_module}"
       ],
       require => Package[$duo_unix::duo_package],
-      onlyif  => "match ${aug_match} size == 0",
-      notify  => Service[$duo_unix::ssh_service];
+      onlyif  => "match ${aug_match} size == 0";
     }
   } else {
     augeas { 'PAM Configuration':
@@ -52,8 +53,7 @@ class duo_unix::pam {
         "set ${aug_pam_path}/100/module ${duo_unix::pam_module}"
       ],
       require => Package[$duo_unix::duo_package],
-      onlyif  => "match ${aug_match} size == 0",
-      notify  => Service[$duo_unix::ssh_service];
+      onlyif  => "match ${aug_match} size == 0";
     }
   }
 }

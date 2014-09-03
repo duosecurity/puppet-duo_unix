@@ -18,7 +18,8 @@ class duo_unix (
   $autopush = 'no',
   $motd = 'no',
   $prompts = '3',
-  $accept_env_factor = 'no'
+  $accept_env_factor = 'no',
+  $manage_ssh = 'yes'
 ) {
   if $ikey == '' or $skey == '' or $host == '' {
     fail('ikey, skey, and host must all be defined.')
@@ -26,6 +27,10 @@ class duo_unix (
 
   if $usage != 'login' and $usage != 'pam' {
     fail('You must configure a usage of duo_unix, either login or pam.')
+  }
+
+  if $manage_ssh != 'yes' and $manage_ssh != 'no' {
+    fail('You must configure how SSH is being managed, either yes or no.')
   }
 
   case $::osfamily {
