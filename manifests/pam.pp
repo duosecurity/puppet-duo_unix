@@ -30,8 +30,7 @@ class duo_unix::pam {
       notify  => Service[$duo_unix::ssh_service];
     }
   }
-
-  if $::osfamily == RedHat {
+  if $::operatingsystem == 'Amazon'{
     augeas { 'PAM Configuration':
       changes => [
         "set ${aug_pam_path}/2/control requisite",
@@ -43,7 +42,21 @@ class duo_unix::pam {
       require => Package[$duo_unix::duo_package],
       onlyif  => "match ${aug_match} size == 0";
     }
-  } else {
+  } 
+  elsif $::osfamily == RedHat {
+    augeas { 'PAM Configuration':
+      changes => [
+        "set ${aug_pam_path}/2/control requisite",
+        "ins 100 after ${aug_pam_path}/2",
+        "set ${aug_pam_path}/100/type auth",
+        "set ${aug_pam_path}/100/control sufficient",
+        "set ${aug_pam_path}/100/module ${duo_unix::pam_module}"
+      ],
+      require => Package[$duo_unix::duo_package],
+      onlyif  => "match ${aug_match} size == 0";
+    }
+  }
+  else {
     augeas { 'PAM Configuration':
       changes => [
         "set ${aug_pam_path}/1/control requisite",
