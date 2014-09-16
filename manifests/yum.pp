@@ -33,15 +33,22 @@ class duo_unix::yum {
     require => [ Yumrepo['duosecurity'], Exec['Duo Security GPG Import'] ]
   }
 
-  if $duo_unix::manage_ssh_package {
-    package { 'openssh-server': }
-  }
-
-  package { $duo_unix::duo_package: }
-
   exec { 'Duo Security GPG Import':
     command => '/bin/rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-DUO',
     unless  => '/bin/rpm -qi gpg-pubkey | grep Duo > /dev/null 2>&1'
   }
+
+  package {  $duo_unix::duo_package:
+    ensure  => latest,
+    require => [ Yumrepo['duosecurity'], 
+    Exec['Duo Security GPG Import'] ];
+  }
+
+  if $duo_unix::manage_ssh_package {
+    package { 'openssh-server':
+      ensure => installed,
+    }
+  }
+
 }
 

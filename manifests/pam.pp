@@ -19,18 +19,23 @@ class duo_unix::pam {
     require => Package[$duo_unix::duo_package];
   }
 
-  augeas { 'DUO Security SSH Configuration' :
-    changes => [
-      'set /files/etc/ssh/sshd_config/UsePAM yes',
-      'set /files/etc/ssh/sshd_config/UseDNS no',
-      'set /files/etc/ssh/sshd_config/ChallengeResponseAuthentication yes'
-    ],
-    require => Package[$duo_unix::duo_package],
-    notify  => Service[$duo_unix::ssh_service];
+  if $duo_unix::manage_ssh_config {
+    augeas { 'DUO Security SSH Configuration' :
+      changes => [
+        'set /files/etc/ssh/sshd_config/UsePAM yes',
+        'set /files/etc/ssh/sshd_config/UseDNS no',
+        'set /files/etc/ssh/sshd_config/ChallengeResponseAuthentication yes'
+      ],
+      require => Package[$duo_unix::duo_package],
+      notify  => $duo_unix::manage_ssh_server ? {
+        true    => Service[$duo_unix::ssh_service],
+        default => undef,
+      };
+    }
   }
 
-  if $::osfamily == RedHat {
-    augeas { 'DUO Security PAM Configuration':
+  if $::osfamily == 'RedHat' {
+    augeas { 'PAM Configuration':
       changes => [
         "set ${aug_pam_path}/2/control requisite",
         "ins 100 after ${aug_pam_path}/2",
@@ -39,11 +44,11 @@ class duo_unix::pam {
         "set ${aug_pam_path}/100/module ${duo_unix::pam_module}"
       ],
       require => Package[$duo_unix::duo_package],
-      onlyif  => "match ${aug_match} size == 0",
-      notify  => Service[$duo_unix::ssh_service];
+      onlyif  => "match ${aug_match} size == 0";
     }
+
   } else {
-    augeas { 'DUO Security PAM Configuration':
+    augeas { 'PAM Configuration':
       changes => [
         "set ${aug_pam_path}/1/control requisite",
         "ins 100 after ${aug_pam_path}/1",
@@ -52,8 +57,8 @@ class duo_unix::pam {
         "set ${aug_pam_path}/100/module ${duo_unix::pam_module}"
       ],
       require => Package[$duo_unix::duo_package],
-      onlyif  => "match ${aug_match} size == 0",
-      notify  => Service[$duo_unix::ssh_service];
+      onlyif  => "match ${aug_match} size == 0";
     }
   }
+
 }
