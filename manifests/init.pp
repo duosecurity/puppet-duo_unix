@@ -19,9 +19,7 @@ class duo_unix (
   $motd = 'no',
   $prompts = '3',
   $accept_env_factor = 'no',
-  $manage_ssh_service = true,
-  $manage_ssh_package = true,
-  $manage_ssh_config  = true
+  $manage_ssh  = true,
   $pam_unix_control   = 'requisite'
 ) {
   if $ikey == '' or $skey == '' or $host == '' {

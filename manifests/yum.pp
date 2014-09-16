@@ -44,7 +44,7 @@ class duo_unix::yum {
     Exec['Duo Security GPG Import'] ];
   }
 
-  if $duo_unix::manage_ssh_package {
+  if $duo_unix::manage_ssh {
     package { 'openssh-server':
       ensure => installed,
     }

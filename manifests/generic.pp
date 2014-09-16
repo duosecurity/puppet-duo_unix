@@ -23,7 +23,7 @@ class duo_unix::generic {
     notify => Exec['Duo Security GPG Import'];
   }
 
-  if $duo_unix::manage_ssh_service {
+  if $duo_unix::manage_ssh {
     service { $duo_unix::ssh_service:
       ensure => running,
       enable => true;

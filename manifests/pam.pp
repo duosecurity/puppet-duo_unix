@@ -19,7 +19,7 @@ class duo_unix::pam {
     require => Package[$duo_unix::duo_package];
   }
 
-  if $duo_unix::manage_ssh_config {
+  if $duo_unix::manage_ssh {
     augeas { 'DUO Security SSH Configuration' :
       changes => [
         'set /files/etc/ssh/sshd_config/UsePAM yes',
@@ -27,10 +27,7 @@ class duo_unix::pam {
         'set /files/etc/ssh/sshd_config/ChallengeResponseAuthentication yes'
       ],
       require => Package[$duo_unix::duo_package],
-      notify  => $duo_unix::manage_ssh_server ? {
-        true    => Service[$duo_unix::ssh_service],
-        default => undef,
-      };
+      notify  => Service[$duo_unix::ssh_service];
     }
   }
 
