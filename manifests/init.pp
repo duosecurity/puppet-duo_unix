@@ -19,8 +19,8 @@ class duo_unix (
   $motd = 'no',
   $prompts = '3',
   $accept_env_factor = 'no',
-  $manage_ssh  = true,
-  $pam_unix_control   = 'requisite'
+  $manage_ssh = true,
+  $pam_unix_control = 'requisite'
 ) {
   if $ikey == '' or $skey == '' or $host == '' {
     fail('ikey, skey, and host must all be defined.')
@@ -60,11 +60,6 @@ class duo_unix (
         i386  => '/lib/security/pam_duo.so',
         i686  => '/lib/security/pam_duo.so',
         amd64 => '/lib64/security/pam_duo.so'
-      }
-
-      $release = $::operatingsystem ? {
-        debian => 'wheezy',
-        ubuntu => 'precise'
       }
 
       include duo_unix::apt

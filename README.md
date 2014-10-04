@@ -119,6 +119,7 @@ The module has been tested on:
 * CentOS 7.0 (64-bit)
 * Debian 7.1 (32/64-bit)
 * Ubuntu 12.04.3 (32/64-bit)
+* Ubuntu 14.04 (32/64-bit)
 
 If you test the module on other Linux distributions (or different versions of 
 the above), please provide feedback as able on successes or failures. We will
@@ -133,3 +134,5 @@ deploy it across your critical infrastucture.
 ##Thanks
 * Gregg Leventhal
 * level99
+* Denise Stockman
+* Dan Cox

@@ -20,7 +20,7 @@ class duo_unix::pam {
   }
 
   if $duo_unix::manage_ssh {
-    augeas { 'DUO Security SSH Configuration' :
+    augeas { 'Duo Security SSH Configuration' :
       changes => [
         'set /files/etc/ssh/sshd_config/UsePAM yes',
         'set /files/etc/ssh/sshd_config/UseDNS no',
