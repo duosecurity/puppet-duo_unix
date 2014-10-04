@@ -7,6 +7,7 @@
 # Mark Stanislav <mstanislav@duosecurity.com>
 #
 class duo_unix::login {
+
   file { '/etc/duo/login_duo.conf':
     ensure  => present,
     owner   => 'sshd',
@@ -16,13 +17,16 @@ class duo_unix::login {
     require => Package[$duo_unix::duo_package];
   }
 
-  augeas { 'SSH Configuration' :
-    changes => [
-      'set /files/etc/ssh/sshd_config/ForceCommand /usr/sbin/login_duo',
-      'set /files/etc/ssh/sshd_config/PermitTunnel no',
-      'set /files/etc/ssh/sshd_config/AllowTcpForwarding no'
-    ],
-    require => Package[$duo_unix::duo_package],
-    notify  => Service[$duo_unix::ssh_service];
+  if $duo_unix::manage_ssh {
+    augeas { 'DUO Security SSH Configuration' :
+      changes => [
+        'set /files/etc/ssh/sshd_config/ForceCommand /usr/sbin/login_duo',
+        'set /files/etc/ssh/sshd_config/PermitTunnel no',
+        'set /files/etc/ssh/sshd_config/AllowTcpForwarding no'
+      ],
+      require => Package[$duo_unix::duo_package],
+      notify  => Service[$duo_unix::ssh_service];
+    }
   }
+
 }

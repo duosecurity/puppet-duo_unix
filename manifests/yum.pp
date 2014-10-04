@@ -8,10 +8,6 @@
 #
 class duo_unix::yum {
   $repo_uri = 'http://pkg.duosecurity.com'
-  package {  [ 'openssh-server', $duo_unix::duo_package ]:
-    ensure  => latest,
-    require => [ Yumrepo['duosecurity'], Exec['Duo Security GPG Import'] ];
-  }
 
   # Map Amazon Linux to RedHat equivalent releases
   if $::operatingsystem == 'Amazon' {
@@ -32,9 +28,27 @@ class duo_unix::yum {
     require  => File['/etc/pki/rpm-gpg/RPM-GPG-KEY-DUO'];
   }
 
+  Package {
+    ensure  => latest,
+    require => [ Yumrepo['duosecurity'], Exec['Duo Security GPG Import'] ]
+  }
+
   exec { 'Duo Security GPG Import':
     command => '/bin/rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-DUO',
     unless  => '/bin/rpm -qi gpg-pubkey | grep Duo > /dev/null 2>&1'
   }
+
+  package {  $duo_unix::duo_package:
+    ensure  => latest,
+    require => [ Yumrepo['duosecurity'], 
+    Exec['Duo Security GPG Import'] ];
+  }
+
+  if $duo_unix::manage_ssh {
+    package { 'openssh-server':
+      ensure => installed,
+    }
+  }
+
 }
 
