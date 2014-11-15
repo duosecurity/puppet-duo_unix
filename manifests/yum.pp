@@ -6,7 +6,9 @@
 #
 # Mark Stanislav <mstanislav@duosecurity.com>
 #
-class duo_unix::yum {
+class duo_unix::yum (
+  $package_version = $::duo_unix::package_version
+) {
   $repo_uri = 'http://pkg.duosecurity.com'
 
   # Map Amazon Linux to RedHat equivalent releases
@@ -33,7 +35,7 @@ class duo_unix::yum {
     }
   }
 
-  package {  $duo_unix::duo_package: 
+  package {  $duo_unix::duo_package:
     ensure  => latest,
     require => [ Yumrepo['duosecurity'], Exec['Duo Security GPG Import'] ];
   }
