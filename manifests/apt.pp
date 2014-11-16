@@ -19,7 +19,11 @@ class duo_unix::apt {
 
   package { $duo_unix::duo_package:
     ensure  => $package_state,
-    require => [ File[$repo_file],  Exec['Duo Security GPG Import'] ]
+    require => [
+      File[$repo_file],
+      Exec['Duo Security GPG Import'],
+      Exec['duo-security-apt-update']
+    ]
   }
 
   file { $repo_file:
