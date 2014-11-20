@@ -20,7 +20,8 @@ class duo_unix (
   $prompts = '3',
   $accept_env_factor = 'no',
   $manage_ssh = true,
-  $pam_unix_control = 'requisite'
+  $pam_unix_control = 'requisite',
+  $package_version = 'installed',
 ) {
   if $ikey == '' or $skey == '' or $host == '' {
     fail('ikey, skey, and host must all be defined.')
