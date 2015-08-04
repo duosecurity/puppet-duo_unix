@@ -6,7 +6,7 @@
 #
 # Mark Stanislav <mstanislav@duosecurity.com>
 #
-class duo_unix::login {
+class duo_unix::login inherits duo_unix {
 
   file { '/etc/duo/login_duo.conf':
     ensure  => present,
