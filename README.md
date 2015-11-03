@@ -22,15 +22,26 @@ of OpenSSH, and PAM alterations as needed.
 For further information about duo_unix, view the official
 [documentation](https://www.duosecurity.com/docs/duounix).
 
-##Example Usage
-    class { 'duo_unix':
-      usage     => 'login',
-      ikey      => 'YOUR-IKEY-VALUE',
-      skey      => 'YOUR-SKEY-VALUE',
-      host      => 'YOUR-API-HOST',
-      pushinfo  => 'yes'
-    }
-    
+##Installing
+
+```
+$ puppet module install duosecurity-duo_unix
+```
+
+##Configuring
+
+```
+$ cat duo_unix.pp
+class { 'duo_unix':
+  usage     => 'login',
+  ikey      => 'YOUR-IKEY-VALUE',
+  skey      => 'YOUR-SKEY-VALUE',
+  host      => 'YOUR-HOST-VALUE',
+  pushinfo  => 'yes'
+}
+$ puppet apply duo_unix.pp
+```
+
 ##Reference
 
 ###Classes
@@ -106,6 +117,10 @@ The default is *true*.
 ####`pam_unix_control [optional]`
 Configures the PAM control value for pam_duo. The default is *requisite*.
 
+####`package_version [optional]`
+Configure which version of Duo Unix to use.
+The default is *latest*.
+
 ##Limitations
 This module has been built on and tested against Puppet 3.2.4
 
@@ -113,12 +128,14 @@ The module has been tested on:
 
 * RedHat Enterprise Linux 6.4 (32/64-bit)
 * RedHat Enterprise Linux 7.0 (64-bit)
-* CentOS 5.9 (32/64-bit)
-* CentOS 6.4 (32/64-bit)
-* CentOS 7.0 (64-bit)
-* Debian 7.1 (32/64-bit)
-* Ubuntu 12.04.3 (32/64-bit)
-* Ubuntu 14.04 (32/64-bit)
+* CentOS 5.11 (32/64-bit)
+* CentOS 6.7 (32/64-bit)
+* CentOS 7.1 (64-bit)
+* Debian 6.0.10 (32/64-bit)
+* Debian 7.9 (32/64-bit)
+* Debian 8.2 (32/64-bit)
+* Ubuntu 12.04.5 (32/64-bit)
+* Ubuntu 14.04.3 (32/64-bit)
 
 If you test the module on other Linux distributions (or different versions of 
 the above), please provide feedback as able on successes or failures. We will
