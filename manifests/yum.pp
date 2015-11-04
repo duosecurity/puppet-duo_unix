@@ -18,10 +18,11 @@ class duo_unix::yum {
       default => undef,
     }
     $os = $::operatingsystem
-  } elsif ( $::operatingsystem == 'RedHat' and $::operatingsystemmajrelease == 5 ) {
+  } elsif ( $::operatingsystem == 'RedHat' and
+            $::operatingsystemmajrelease == 5 ) {
     $os = 'CentOS'
     $releasever = '$releasever'
-  } elsif ( $::operatingsystem == "OracleLinux" ) {
+  } elsif ( $::operatingsystem == 'OracleLinux' ) {
     $os = 'CentOS'
     $releasever = '$releasever'
   } else {
