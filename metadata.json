@@ -1,6 +1,6 @@
 {
   "name": "duosecurity-duo_unix",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "author": "Duo Security",
   "summary": "Installs, configures, and manages Duo Unix.",
   "license": "GPL-2.0",
