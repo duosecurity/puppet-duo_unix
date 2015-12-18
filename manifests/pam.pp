@@ -31,31 +31,32 @@ class duo_unix::pam {
     }
   }
 
-  if $::osfamily == 'RedHat' {
-    augeas { 'PAM Configuration':
-      changes => [
-        "set ${aug_pam_path}/2/control ${duo_unix::pam_unix_control}",
-        "ins 100 after ${aug_pam_path}/2",
-        "set ${aug_pam_path}/100/type auth",
-        "set ${aug_pam_path}/100/control sufficient",
-        "set ${aug_pam_path}/100/module ${duo_unix::pam_module}"
-      ],
-      require => Package[$duo_unix::duo_package],
-      onlyif  => "match ${aug_match} size == 0";
-    }
+  if $duo_unix::manage_pam {
+    if $::osfamily == 'RedHat' {
+      augeas { 'PAM Configuration':
+        changes => [
+          "set ${aug_pam_path}/2/control ${duo_unix::pam_unix_control}",
+          "ins 100 after ${aug_pam_path}/2",
+          "set ${aug_pam_path}/100/type auth",
+          "set ${aug_pam_path}/100/control sufficient",
+          "set ${aug_pam_path}/100/module ${duo_unix::pam_module}"
+        ],
+        require => Package[$duo_unix::duo_package],
+        onlyif  => "match ${aug_match} size == 0";
+      }
 
-  } else {
-    augeas { 'PAM Configuration':
-      changes => [
-        "set ${aug_pam_path}/1/control ${duo_unix::pam_unix_control}",
-        "ins 100 after ${aug_pam_path}/1",
-        "set ${aug_pam_path}/100/type auth",
-        "set ${aug_pam_path}/100/control '[success=1 default=ignore]'",
-        "set ${aug_pam_path}/100/module ${duo_unix::pam_module}"
-      ],
-      require => Package[$duo_unix::duo_package],
-      onlyif  => "match ${aug_match} size == 0";
+    } else {
+      augeas { 'PAM Configuration':
+        changes => [
+          "set ${aug_pam_path}/1/control ${duo_unix::pam_unix_control}",
+          "ins 100 after ${aug_pam_path}/1",
+          "set ${aug_pam_path}/100/type auth",
+          "set ${aug_pam_path}/100/control '[success=1 default=ignore]'",
+          "set ${aug_pam_path}/100/module ${duo_unix::pam_module}"
+        ],
+        require => Package[$duo_unix::duo_package],
+        onlyif  => "match ${aug_match} size == 0";
+      }
     }
   }
-
 }
