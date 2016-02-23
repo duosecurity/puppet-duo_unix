@@ -6,7 +6,7 @@
 #
 # Mark Stanislav <mstanislav@duosecurity.com>
 #
-class duo_unix::pam {
+class duo_unix::pam inherits duo_unix {
   $aug_pam_path = "/files${duo_unix::pam_file}"
   $aug_match    = "${aug_pam_path}/*/module[. = '${duo_unix::pam_module}']"
 
