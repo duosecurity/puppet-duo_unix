@@ -114,6 +114,10 @@ for this setting.
 Configures whether or not to allow the module to manage the SSH service/package. 
 The default is *true*.
 
+####`manage_pam [optinal]`
+Configures whether or not to allow the module to manage the system PAM configuration.
+The default is *true*.
+
 ####`pam_unix_control [optional]`
 Configures the PAM control value for pam_duo. The default is *requisite*.
 

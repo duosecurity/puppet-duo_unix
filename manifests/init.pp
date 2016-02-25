@@ -20,6 +20,7 @@ class duo_unix (
   $prompts = '3',
   $accept_env_factor = 'no',
   $manage_ssh = true,
+  $manage_pam = true,
   $pam_unix_control = 'requisite',
   $package_version = 'installed',
 ) {
