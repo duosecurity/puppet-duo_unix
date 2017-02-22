@@ -126,7 +126,7 @@ Configure which version of Duo Unix to use.
 The default is *latest*.
 
 ##Limitations
-This module has been built on and tested against Puppet 3.2.4
+This module has been built on and tested against Puppet 3.2.4. It does not yet support Puppet 4.
 
 The module has been tested on:
 
