@@ -1,4 +1,4 @@
-# duo_unix Puppet Module
+# duo_unix Puppet v3 Module (Inactive)
 
 ## Table of Contents
 
@@ -11,7 +11,7 @@
 
 ## Overview
 
-The duo_unix module installs and manages duo_unix (`login_duo` or `pam_duo`).
+The duo_unix Puppet module installs and manages duo_unix (`login_duo` or `pam_duo`).
 
 ## Description
 
@@ -129,8 +129,11 @@ while others are optional.
   Configure which version of Duo Unix to use.
   The default is *latest*.
 
-## Limitations
-This module has been built on and tested against Puppet 3.2.4. It does not yet support Puppet 4.
+## Support and Limitations
+
+This module built on and tested against Puppet 3.2.4. It does not yet support 
+Puppet 4 and is no longer being actively developed. Duo continues to provide 
+best-effort support for this module.
 
 The module has been tested on:
 
@@ -146,8 +149,7 @@ The module has been tested on:
 * Ubuntu 14.04.3 (32/64-bit)
 
 If you test the module on other Linux distributions (or different versions of 
-the above), please provide feedback as able on successes or failures. We will
-work to add support for other operating systems and Linux distributions soon.
+the above), please provide feedback as able on successes or failures. 
 
 **Caution:** The use of this module will edit OpenSSH and/or PAM configuration 
 files depending on the usage defined. These modifications have only been tested
@@ -160,3 +162,4 @@ deploy it across your critical infrastucture.
 * level99
 * Denise Stockman
 * Dan Cox
+* Mark Stanislav
