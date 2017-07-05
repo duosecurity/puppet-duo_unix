@@ -7,7 +7,7 @@
 ### [Installing](#installing-1)
 ### [Configuring](#configuring-1)
 ### [Reference](#reference-1)
-### [Limitations](#limitations-1)
+### [Support and Limitations](#support-and-limitations-1)
 
 ## Overview
 
