@@ -1,6 +1,6 @@
 # duo_unix Puppet v3 Module (Dev Status: Inactive)
 
-:exclamation: **This project is longer being actively developed or maintained, and will be archived in the near future.**
+:exclamation: **This project was archived on 2/20/2018.**
 
 ## Table of Contents
 
